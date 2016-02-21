@@ -2,7 +2,9 @@ Notes for contributors
 ======================
 
 As an open source project, Cotonti welcomes contributions of many forms.
+
 Do you have a new cool feature that you'd like to contribute to Cotonti? Or a fix for a bug? Great! The Cotonti project loves code contributions, improvements, and bugfixes, but we require that they follow a set of guidelines and that they are contributed in a specific way.
+
 The rules below are not guidelines or recommendations, but strict rules. Contributions to Cotonti generally *may not be accepted* if they do not adhere to these rules.
 Not all existing code follows these rules, but all new code is expected to
 
