@@ -1,4 +1,4 @@
-If you are ready to open issue, be sure to provide all neseccary information:
+If you are ready to open issue, be sure to provide all necessary information:
 
 - [ ] Cotonti version
 - [ ] plugin version (in case plugin related bug)
