@@ -1,3 +1,6 @@
+Before creating issue
+---------------------
+
 If you are ready to open issue, be sure to provide all necessary information:
 
 - [ ] Cotonti version
