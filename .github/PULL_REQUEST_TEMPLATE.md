@@ -1,3 +1,6 @@
+Before creating pull request
+----------------------------
+
 If you are already familiar with Cotonti project and fill power to improve it via PR 
 — please check these simple rulew to be sure you are on the right way:
 
