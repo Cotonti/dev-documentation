@@ -88,7 +88,7 @@ Requires_php_bcmath = *
 
 ```ini
 # Хотим минимум PHP версии 5.4
-Requires_php = 5.4
+Requires_php = >5.4
 ```
 
 ```ini
