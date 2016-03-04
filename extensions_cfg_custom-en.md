@@ -1,12 +1,10 @@
-> *Note*: **This is working draft. Translation had not been complete.**
-> 
 # 'custom' type in config variables
 
 If you are not familiar with configuration variables for Extensions you can read some on [Configuration values](docs/ext/extensions/configvalues) page.
 Here we going deeper to 'custom' type of it.
 
-Till Siena `0.9.19` we can use only these types of config variables:
-`string` (string input), `text` (text field), `radio` (radio switch — yes/no), `select` (dropdown select), `callback` (custom select list), `range` (integer range).
+Prior to Siena `0.9.19` we can use only these types of config variables:
+`string` (string input), `text` (text field), `radio` (radio switch — yes/no), `select` (drop-down select), `callback` (custom select list), `range` (integer range).
 And more 2 of special type — `hidden` (hidden value) and `separator` (visual delimiter of variable groups).
 
 The bottle neck for developers these times was limited number of predefined types and lack of ability to filter user input values before saving in database.
@@ -126,31 +124,31 @@ It can be done using standard notification functions `cot_error()` and  `cot_mes
 But some rules should be complied: 
   * if user inputed value are changes by filter function warning  (тип `warning`).
   
-  Пример: ввод целого числа в указанном диапазоне, когда пользователь ввел число выходящее за границы диапазона, функция может скорректировать ввод пользователя установив значение равное соответствующей границе диапазона.
+  Example: inputing integer in defined range of values, when user set value beyond permitted, function can alter input to set value as corresponding range edge.
   
-  Пример вывода предупреждающего сообщения:
+  Example for emitting warning message:
   
   ```php
   cot_message('msg', 'warning', $var_name);
   ```
 
-  * если пользователь ввел недопустимое значение, которое не может быть скорректировано или отфильтровано, необходимо вывести сообщение с ошибкой (тип `error`):
+  * If user input not permitted and can not be corrected, function should emmit `error` type message:
 
   ```php
   cot_error('msg', $var_name);
   ```
 
-В обоих случаях последним параметром в функцию вывода сообщения передается имя переменной. Это необходимо для отображения ошибок рядом с конкретным полем ввода (при включенной в настройках системы опции `Показывать сообщения отдельно для каждого источника`).
+In both cases the last argument to message function is *variable name*. It's required for `Display messages separately for each source` mode (see `Administration panel` → `Configuration` → `Themes` settings). 
 
 
-## Создание пользовательских полей ввода
+## Creating custom input fields
 
-С помощью типа `custom` так же можно контролировать внешний вид и функционал полей ввода. По сути разработчик имеет возможность полностью переопределить HTML код поля ввода и даже создать для одного параметра несколько отдельных полей ввода.
-За формирование кода элемента отвечает отдельная функция, вызываемая при создании страницы настроек. Имя этой функции должно соответствовать имени указанном в определении `custom` переменной:
+With `custom` type variables it's possible to alter default input fields styling and behavior. In fact it's possible use custom HTML code for input field or even use several input fields for one config variable.
+There are special function to be called while system is building configuration page. The name of function must match with name set in variable definition (with type `custom`):
 ```
-mobile_num=01:custom:mobtel_input('+7',11)::Contact phone
+mobile_num=01:custom:mobtel_input('+7')::Contact phone
 ```
-тогда функция может выглядеть так:
+so function can be define like this:
 ```php
 function mobtel_input($cfg_var, $prefix=''){
 	$name = $cfg_var['config_name'];
@@ -165,25 +163,25 @@ function mobtel_input($cfg_var, $prefix=''){
 }
 ```
 
-Первым параметром в функцию передается массив данных самой переменной конфигурации (описание см. выше). Следом будут переданы все параметры указанные в описании переменной в «setup» файле Расширения. 
+As a first argument in function we get array of variable definition data  (see description above). The last parameters will be that defined in «setup» file. 
 
 
-## Пример использования ##
+## Example of use ##
 
-### Поле ввода пароля ###
+### Password input fields ###
 
-Попробуем применить полученные в предыдущих разделах знания. 
+Let's try to do some custom fields relies on info from this page.
 
-Допустим для нашего Расширения нам надо хранить пароль от стороннего сервиса, и мы хотим реализовать «стандартное» поле для ввода пароля (с сокрытием ввода и дублирующим полем для подтверждения правильности ввода).
+Assume we need to store password for third party service inside our extension, and we want to get standard password input field in configuration page (by «standard» means fields with masked symbols and second input to verify password type is correct).
 
-Первое — определим нашу переменную файла конфигурации, в которой будет храниться значение пароля (например для доступа к стороннему облачному сервису):
+First — define our setup file variable, that should store our password:
 ```
-cloud_psw=01:custom:cfg_password(5)::Test password input
+cloud_psw=01:custom:cfg_password(5)::Cloud server access password
 ```
-Тип переменной, естественно, `custom`. `cfg_password()` — функция для вывода поля ввода. В качестве переменной этой функции будем передавать минимально допустимую длину пароля (5 символов).
+Type of variable is set to `custom`. `cfg_password()` — is a function for generating input fields. As an argument we pass number of minimal allowed length of password (5 symbols).
 
-Для формирования элемента ввода пароля нам потребуется 2 поля типа `password`. 
-Данные из полей будем получать в виде массива с ключами 0 и 1. 
+To input we needs 2 input fields with type `password`. 
+Input data will be get by array with keys `0` and `1`. 
 
 ```php
 function cfg_password($cfg_var, $minlength = 4){
@@ -191,57 +189,57 @@ function cfg_password($cfg_var, $minlength = 4){
 	$value = $cfg_var['config_value'];
 	$var_name = $cfg_var['config_name'];
 	$type = 'password'; // тип полей ввода
-	// дополнительно установим проверку длины средствами HTML5
+	// append length check as HTML5 do
 	$attr = array('pattern' => '[^\s]{'.$minlength.',}');
-	// создаем HTML код для вывода 2-х полей
+	// generating HTML code to display two input fields
 	$input_code = 
-		cot_inputbox($type, $var_name.'[0]', $value, $attr) . // первое поле
-		' <br>Для смены пароля введите его повторно:<br>' .
-		cot_inputbox($type, $var_name.'[1]', '', $attr); // второе поле
+		cot_inputbox($type, $var_name.'[0]', $value, $attr) . // first field
+		' <br>To change password — type it once more:<br>' .
+		cot_inputbox($type, $var_name.'[1]', '', $attr); // second field
 	return $input_code;
 }
 ```
-Написание своей функции вывода поля ввода, в том числе, позволяет нам гибко настраивать любые атрибуты. 
+By using custom function for field generation we allow also to set any attributes for input field. 
 
-Далее приступим к функции фильтрации введенного пароля (т.е. проверки на соответствие заданным условиям). 
+As next step we need to set filtration function to process inputed data. 
 
 ```php
 function cfg_password_filter(&$input_value, $cfg_var, $minlength = 4){
 	if (!is_array($input_value)) return NULL;
 
 	if ($input_value[0] == $input_value[1]) { 
-		// если пароли в обоих полях совпали
-		// проверяем соответствие минимальной длине
-			if ($input_value[0] && mb_strlen($input_value[1]) < $minlength) {
-			// если длина не удовлетворяет — выводим ошибку стандартными средствами
-			cot_error('Минимальная длина: '.$minlength, $cfg_var['config_name']);
+		// if both inputed password matched
+		// checking for minimal required length
+		if ($input_value[0] && mb_strlen($input_value[1]) < $minlength) 
+		{
+			// if it too short — emit error
+			cot_error('minimal length required: '.$minlength, $cfg_var['config_name']);
 		}
 		else
 		{
-			// в случае успеха возвращаем значения пароля 
-			// для последующего сохранения в БД
+			// in case of good password return it for further saving in DB
 			return $input_value[1];
 		}
 	} else {
-		// если пользователь ошибся при вводе выводим сообщение
-		if ($input_value[0]) cot_error('Введенные пароли не совпадают', $cfg_var['config_name']);
+		// if password not matched emit corresponding error
+		if ($input_value[0]) cot_error('Entered passwords not matched', $cfg_var['config_name']);
 	}
-	// в случае ошибки мы должны вывести в поле текущий пароль
+	// in case of error we must set current password for input field
 	$input_value = $cfg_var['config_value'];
 	return NULL;
 }
 ```
-Через ссылку на `&$input_value` мы получаем массив с двумя элементами, в котором содержится данные введенные пользователем в соответствующие поля. Передача параметра по ссылке здесь необходима, чтобы в случае некорректного ввода переписать входящие данне значением текущего пароля, который будет отражен в поле после перегрузки страницы и вывода ошибки.
+By `&$input_value` reference we get array with two elements that contains user entered passwords. We use reference here to allow change inputed data for default one (current password) in case of errors.
 
-Вот так, написав 2 небольшие функции, мы получили совершенно новый пользовательский тип для переменной страницы настроек. 
-Сделав данные функции максимально универсальными вы сможете применять их в различных своих Расширениях без каких-либо изменений.
+So, by defining two simple functions we get new custom type for configuration page. 
+Making this functions more universal you can use it across different of your Extensions without any addition corrections.
 
-### Данные по умолчанию ###
+### Default values ###
 
-Как вы могли заметить из раздела «Фильтрация данных через встроенные фильтры», при использовании типа `custom` не обязательно всегда писать свой фильтр-обработчик и функцию вывода поля. Для фильтрации может быть использован встроенный фильтр, а для вывода поля по умолчанию (если пользовательская функция не определена) будет использовано обычное «строковое» поле ввода (`<input type="text">`).
+As you could been noted in «Filtering data with custom function» section, we not required to always set filtration and field generation functions. We can use built-in filters, and a default field for input (in this case it would be common text field to string input — `<input type="text">`).
 
-Таким образом, мы можем, например, использовать встроенный фильтр, но создать для него собственное поле ввода:
+This way we can use one of predefined filters but meka a custom field for input:
 ```
-myvar=01:custom:color_input_alp():Black:Select color, type name or HEX code
+ui_color=01:custom:color_input_alp():Black:Select color, type name or HEX code
 ```
-В этом случае, для создания поля ввода будет вызвана функция `color_input_alp()`б а обработка введенного значения будет произведена «встроенным» фильтром `ALP` (`aplhanumeric` — удаляет все символы, кроме символов латинского алфавита, цифр, дефиса и символа подчеркивания).
+In this sample case we get `color_input_alp()` function call for field generation, but filtration will be done by system defined `ALP` filter (means `aplhanumeric` — filters all except alpha, digits, hyphen and underscore symbols).
