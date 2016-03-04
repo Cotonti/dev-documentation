@@ -97,6 +97,17 @@ $L['cfg_'.$varname.'_hint']  // hint for input field
 ```
 … where `$varname` replaces by actual Variable name.
 
+Localizing extra fields description
+===================================
+
+As a developer/administrator of your site you can add «Extra fields» to some data tables (Admin panel → Other → Extra fields). While adding Extra field configuration we can add default description. It will be accessed via `{XXX_EXTRAFIELDNAME_TITLE}` tag, where `XXX` — name of table for extra field, and `EXTRAFIELDNAME` — name of extra field itself. 
+Inspite of Cotonti do not provides standard way to localize extra field description, in many cases it should use this variable for it: 
+```php
+$L['page_{extrafieldname}_title'] = 'Extra field description';
+```
+where `{extrafieldname}` — it's a name of an extra field.
+
+
 
 Arrays / list localization
 ==========================
