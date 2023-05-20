@@ -17,13 +17,13 @@ This common rules consider all source code files in the project (HTML, PHP, CSS,
 
 There is not a hard limit on line length. Each line of text in your code should be at most 120 characters long.  
 Put the line break wherever it makes the most aesthetic sense, not necessarily the breaking
-point closest to 120 characters
+point closest to 120 characters.
 
 ## 2. PHP guidelines
 
 ### 2.1 A brief view
 
-…in addition to general rules:
+…in addition to general rules
 
 PHP code should follow the [PSR-12](https://www.php-fig.org/psr/psr-12/), and the
 [PSR-1](https://www.php-fig.org/psr/psr-1/) coding standards and the [PSR-4](https://www.php-fig.org/psr/psr-4/)
@@ -115,9 +115,6 @@ We DO NOT USE underscores to denote class private properties and methods.
 #### 2.3.1 Variable naming
 Variable names MUST be in **camelCase**. Each word, except the first one, must begin with a capital letter. 
 For example: `$currentUser` is correct, but `$current_user` and `$currentuser` are not
-
-Ситуации, когда допускаются односимвольные имена для переменных: языковые строки: `$L`, строковые ресурсы: `$R` и
-когда переменная является индексом для цикла.
 
 Situations when one-character variable names are allowed: language strings: `$L`, string resources: `$R`, and when the
 variable is an index for some looping construct.
