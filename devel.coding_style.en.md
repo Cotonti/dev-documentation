@@ -89,7 +89,7 @@ class MySQL extends Adapter
 
 #### 2.2.3 Methods and functions 
 Do not forget to comment the functions. Each function should have at least a comment of what this function does. Also, 
-it is recommended to document the parameters too.
+it is recommended to document the parameters too. Use `@param`, `@return`, `@throws` in that order.
 ```php
 /**
  * Returns total number of records contained in a table
@@ -199,9 +199,9 @@ $name = 'Cotonti' . ' CMF';
 
 When string is long format is the following:
 ```php
-$sql = "SELECT *"
-. "FROM `post` "
-. "WHERE `id` = 121 ";
+$sql = 'SELECT * '
+. 'FROM post '
+. 'WHERE id = 121 ';
 ```
 
 ### 2.6 Arrays
@@ -385,3 +385,54 @@ When making a method or function call, there MUST NOT be a space between the met
 parenthesis, there MUST NOT be a space after the opening parenthesis, and there MUST NOT be a space before the closing 
 parenthesis. In the argument list, there MUST NOT be a space before each comma, and there MUST be one space after each
 comma.
+
+## 3. SQL guidelines
+
+SQL Statements are often unreadable without some formatting, since they tend to be big at times.
+Though the formatting of sql statements adds a lot to the readability of code. SQL statements should 
+be formatted in the following way, basically writing keywords:
+```php
+$sql = 'SELECT p.*, u.* ' 
+    . 'FROM ' . Cot::$db->pages . ' AS p ' .
+    . 'LEFT JOIN ' . Cot::$db->pages . ' AS u ON u.user_id = p.page_ownerid '
+    . "WHERE p.page_ownerid = 1 AND p.page_cat = 'news' " 
+    . 'LIMIT 10';
+```
+
+Use parameters to safely substitute user-supplied data into the query (even if you are sure the variable cannot contain
+single quotes - never trust your input):
+```php
+$result = Cot::$db->query(
+    'SELECT * FROM ' . Cot::$db->forum_topics . ' WHERE ft_cat = :cat  AND ft_id = :topicId',
+    ['cat' => $section, 'topicId' => $param]
+);
+```
+
+#### Avoid DB specific SQL
+- The `not equals` operator, as defined by the [SQL-92 standard](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)
+, is "<>". `!=` is also supported by most databases, but it's better to use `<>`.
+- `INSERT ... ON DUPLICATE KEY UPDATE` - is a MySQL specific extension to SQL.
+- Backticks `` ` `` for table and column names are MySQL specific. Better use
+`CotDB::quoteTableName()` and `CotDB::quoteColumnName()` or abbreviations of these methods: `CotDB::quoteT()`,
+`CotDB::quoteC()`
+
+## 4. Javascript guidelines
+- Use [JSDoc](https://jsdoc.app/) for classes, member variables, and methods
+- The documenting, commenting and naming rules are applicable from point **2. PHP**
+- Don't use [jQuery](https://jquery.com /) where you can do without it.
+- Use `let` rather than `var` to declare variables and `const` to declare constants.
+- Constants whose values are always hard-coded throughout the program are named in uppercase with
+an underscore as a word separator. For example: `const COLOR_ORANGE = "#ffa500"`.
+Most variables are constants in a different sense: they don't change value after assignment. But with different
+function launches their value may vary. Such variables should use `const` and **camelCase** in the name.
+- Semicolons are always placed at the end of the line.
+- Always use strict equality `===` (inequality `!==`).
+
+### 4.2 Strings
+- use single quotes: `let single = 'single-quoted';`.
+- If string contains single quotes you can use double quotes to avoid extra escaping.
+- For expressions substitute use backticks: ``alert(`1 + 2 = ${sum(1, 2)}.`); // 1 + 2 = 3.``.
+
+## 5. Helpful links and tools
+- [PHPStorm Quality Tools](https://www.jetbrains.com/help/phpstorm/php-quality-tools.html)
+- [Changelog files rules](https://keepachangelog.com) — useful how-to maintain CHANGELOG files

@@ -9,7 +9,7 @@ Actual Cotonti documentation can be found on [official page](https://www.cotonti
 
 ### Files naming convention
 
-`category-page_alias.locale.md`
+`category.page-alias.locale.md`
 
 Where `category` - parent category code, `page_alias` alias of posted or suggested page, 
 `locale` - 2 digit locale code as used in Cotonti. 
