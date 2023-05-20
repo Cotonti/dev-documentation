@@ -350,7 +350,7 @@ class ClassName extends ParentClass implements \ArrayAccess, \Countable
 
     protected $protectedProp;
 
-    private $_privateProp;
+    private $privateProp;
 
 
     public function someMethod()
