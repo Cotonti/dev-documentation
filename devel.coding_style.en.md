@@ -145,7 +145,7 @@ be reused as the core API. You can use your own prefix within your extension API
 
 #### 2.3.3 Summary
 The basic philosophy here is to not hurt code clarity for the sake of laziness. This has to be balanced by a little bit
-of common sense, though; `printLoginStatusForAGivenUser()` goes too far, for example - that function would be
+of common sense, though: `printLoginStatusForAGivenUser()` goes too far, for example - that function would be
 better named `printUserLoginStatus()`, or just `printLoginStatus()`.
 
 ### 2.4 Types
