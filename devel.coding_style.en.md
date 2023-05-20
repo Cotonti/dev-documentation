@@ -327,13 +327,18 @@ dealing with them in cases where they are only related to a small subset of the 
 
 ```php
 <?php
-
+/**
+ * File doc block
+ */
 namespace Vendor\Package;
 
 use FooClass;
 use BarClass as Bar;
 use OtherVendor\OtherPackage\BazClass;
 
+/**
+ * Class doc block
+ */
 class ClassName extends ParentClass implements \ArrayAccess, \Countable
 {
     public $publicProp1;
