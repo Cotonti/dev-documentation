@@ -290,7 +290,6 @@ switch ($expr) {
         return;
     default:
         echo 'Default case';
-        break;
 }
 ```
 
