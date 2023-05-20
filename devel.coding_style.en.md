@@ -104,7 +104,7 @@ public function countRows($tableName)
 All names must be descriptive, but concise. Seeing the name of a class or variable, it should be clear what they are
 needed for. For example: `$CurrentUser`, `getUserData($id)`.
 
-**Class names** MUST be declared in `PascalCase`. For example: `Controller`, `Model`.
+**Class names** MUST be declared in **PascalCase**. For example: `Controller`, `Model`.
 
 **Constants** MUST be declared in all upper case with underscore separators. For example: `STATUS_PUBLISHED`.
 
