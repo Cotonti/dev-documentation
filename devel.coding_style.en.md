@@ -54,6 +54,8 @@ It is very good when the header describes the variables that are used in this fi
 
 Standard header for new files (this template of the header must be included at the start of all Cotonti files):
 ```php
+<?php
+
 /**
  * @package {PACKAGENAME}
  * @version {VERSION}
@@ -327,9 +329,11 @@ dealing with them in cases where they are only related to a small subset of the 
 
 ```php
 <?php
+
 /**
  * File doc block
  */
+ 
 namespace Vendor\Package;
 
 use FooClass;
