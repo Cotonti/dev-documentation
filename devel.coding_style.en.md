@@ -121,7 +121,7 @@ variable is an index for some looping construct.
 
 **Loop Indices:** \
 In this case, the index of the outer loop should always be `$i`. If there's a loop inside that loop, its index should 
-be `$j`, followed by $k, and so on. If the loop is being indexed by some already-existing variable with a meaningful
+be `$j`, followed by `$k`, and so on. If the loop is being indexed by some already-existing variable with a meaningful
 name, this guideline does not apply, example:
 ```php
 for ($i = 0; $i < $outerSize; $i++) {
@@ -138,7 +138,7 @@ Functions and methods names MUST be in **camelCase**. The exception is Cotonti c
 In Cotonti we are using standard `cot_` prefix for any function to avoid naming conflicts. It is standard for the
 core API to be reusable: `cot_mailPrepareAddress($address)`
 
-But you are not forced for `cot_` prefix in your plugins, unless those functions are going to
+But you are not forced for use `cot_` prefix in your plugins, unless those functions are going to
 be reused as the core API. You can use your own prefix within your extension API.
 
 **Function Arguments** are subject to the same guidelines as variable names.
