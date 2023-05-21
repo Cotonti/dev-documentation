@@ -378,12 +378,12 @@ first item in the list MUST be on the next line, and there MUST be only one argu
 
 ```php
 public function aVeryLongMethodName(
-        ClassTypeHint $arg1,
-        &$arg2,
-        array $arg3 = []
-    ) {
-        // method body
-    }
+   ClassTypeHint $arg1,
+   &$arg2,
+   array $arg3 = []
+) {
+   // method body
+}
 ```
 
 When making a method or function call, there MUST NOT be a space between the method or function name and the opening 
