@@ -414,8 +414,8 @@ $result = Cot::$db->query(
 ```
 
 #### Avoid DB specific SQL
-- The `not equals` operator, as defined by the [SQL-92 standard](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)
-, is "<>". `!=` is also supported by most databases, but it's better to use `<>`.
+- The `not equals` operator, as defined by the [SQL-92 standard](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt),
+is `<>`. `!=` is also supported by most databases, but it's better to use `<>`.
 - `INSERT ... ON DUPLICATE KEY UPDATE` - is a MySQL specific extension to SQL.
 - Backticks `` ` `` for table and column names are MySQL specific. Better use
 `CotDB::quoteTableName()` and `CotDB::quoteColumnName()` or abbreviations of these methods: `CotDB::quoteT()`,
