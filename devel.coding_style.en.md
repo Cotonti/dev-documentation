@@ -313,7 +313,7 @@ The term "class" refers to all classes, interfaces, and traits.
 
 - The opening brace for the class MUST go on its own line; the closing brace for the class MUST go on the next line
 after the body.
-- Classes SHOULD be named using `PascalCase`.
+- Classes SHOULD be named using **PascalCase**.
 - Every class MUST have a documentation block that conforms to the [PHPDoc](https://phpdoc.org/)
 - There should be only one class in a single PHP file.
 - All classes should be namespaced.
