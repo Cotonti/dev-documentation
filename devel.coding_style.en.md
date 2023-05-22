@@ -424,7 +424,7 @@ is `<>`. `!=` is also supported by most databases, but it's better to use `<>`.
 ## 4. Javascript guidelines
 - Use [JSDoc](https://jsdoc.app/) for classes, member variables, and methods
 - The documenting, commenting and naming rules are applicable from point **2. PHP**
-- Don't use [jQuery](https://jquery.com /) where you can do without it.
+- Don't use [jQuery](https://jquery.com/) where you can do without it.
 - Use `let` rather than `var` to declare variables and `const` to declare constants.
 - Constants whose values are always hard-coded throughout the program are named in uppercase with
 an underscore as a word separator. For example: `const COLOR_ORANGE = "#ffa500"`.
