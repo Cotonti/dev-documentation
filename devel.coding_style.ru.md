@@ -24,7 +24,7 @@
 ## 2. PHP
 
 ### 2.1 Общий обзор
-_…in addition to general rules:_
+_…в дополнение к основным правилам:_
 
 PHP код должен следовать стандарту написания кода [PSR-12](https://www.php-fig.org/psr/psr-12/), и 
 [PSR-1](https://www.php-fig.org/psr/psr-1/), и стандарту автозагрузки php-файлов 
