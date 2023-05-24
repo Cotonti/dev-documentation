@@ -337,12 +337,19 @@ $min = ($i < $j) ? $i : $j;
 ```php
 <?php
 
+/**
+ * Doc блок файла
+ */
+
 namespace Vendor\Package;
 
 use FooClass;
 use BarClass as Bar;
 use OtherVendor\OtherPackage\BazClass;
 
+/**
+ * Doc блок класса
+ */
 class ClassName extends ParentClass implements \ArrayAccess, \Countable
 {
     public $publicProp1;
