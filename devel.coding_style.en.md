@@ -151,7 +151,7 @@ of common sense, though: `printLoginStatusForAGivenUser()` goes too far, for exa
 better named `printUserLoginStatus()`, or just `printLoginStatus()`.
 
 ### 2.4 Types
-All PHP types and values should be used lowercase. That includes `true`, `false`, `null` and `array`.
+All PHP types and values should be used lowercase. That includes `true`, `false`, `null`.
 
 We use operators for type casting, not functions. And only their short forms. Put one space after the operator.
 ```php
