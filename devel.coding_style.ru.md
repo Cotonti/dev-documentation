@@ -437,11 +437,11 @@ $result = Cot::$db->query(
 - Всегда используйте строгое сравнение: равенство `===`, неравенство `!==`.
 
 ### 4.1 Строки
-- Используйте одинарные кавычки: `let single = 'single-quoted';`..
+- Используйте одинарные кавычки: `let single = 'single-quoted';`.
 - Если строка содержит одинарную кавычку, используйте двойные кавычки во избежание излишнего экранирования.
 - Для подстановки выражений используйте обратные кавычки:  ``alert(`1 + 2 = ${sum(1, 2)}.`); // 1 + 2 = 3.``.
 
-## 5. Helpful links and tools
+## 5. Полезные ссылки и уилиты
 - [PHPStorm Quality Tools](https://www.jetbrains.com/help/phpstorm/php-quality-tools.html)
 - [Changelog files rules](https://keepachangelog.com) — полезные инструкции по ведению CHANGELOG файлов
 
