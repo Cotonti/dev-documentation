@@ -440,4 +440,6 @@ function launches their value may vary. Such variables should use `const` and **
 
 ## 5. Helpful links and tools
 - [PHPStorm Quality Tools](https://www.jetbrains.com/help/phpstorm/php-quality-tools.html)
+- (PHP Static Analysis Tool)[https://phpstan.org/] - discover bugs in your code without running it!
+- (PHP_CodeSniffer)[https://github.com/squizlabs/PHP_CodeSniffer] tokenizes PHP files and detects violations of a defined set of coding standards.
 - [Changelog files rules](https://keepachangelog.com) — useful how-to maintain CHANGELOG files
