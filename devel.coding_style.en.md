@@ -433,7 +433,7 @@ function launches their value may vary. Such variables should use `const` and **
 - Semicolons are always placed at the end of the line.
 - Always use strict equality `===` (inequality `!==`).
 
-### 4.2 Strings
+### 4.1 Strings
 - use single quotes: `let single = 'single-quoted';`.
 - If string contains single quotes you can use double quotes to avoid extra escaping.
 - For expressions substitute use backticks: ``alert(`1 + 2 = ${sum(1, 2)}.`); // 1 + 2 = 3.``.
