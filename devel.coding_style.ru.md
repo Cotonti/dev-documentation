@@ -443,5 +443,7 @@ $result = Cot::$db->query(
 
 ## 5. Полезные ссылки и уилиты
 - [PHPStorm Quality Tools](https://www.jetbrains.com/help/phpstorm/php-quality-tools.html)
+- [PHP Static Analysis Tool](https://phpstan.org/) - обнаружение ошибок в коде не запуская его!
+- [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) проверка PHP файлов на соотвествие стандартам написания кода.
 - [Changelog files rules](https://keepachangelog.com) — полезные инструкции по ведению CHANGELOG файлов
 
