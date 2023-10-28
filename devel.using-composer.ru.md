@@ -30,14 +30,14 @@
 Здесь мы добавим в создаваемое расширение Cotonti HTTP клиент [Guzzle](https://docs.guzzlephp.org), который позволяет отправлять как синхронные,
 так и асинхронные запросы к удаленном серверам, используя один и тот же интерфейс. Отличный инструмент для интеграции с различными API.
 
-А также мы будем загружать файлы в удаленное хранилище.
+А также мы будем использовать [Flysystem](https://flysystem.thephpleague.com) для загрузки файлов в удаленное хранилище.
 
 Эти фичи будут использоваться только для примера и никак между собой не связаны.
 
 Итак приступим.
 
-Следуя инструкциям с [по установке Guzzle](https://docs.guzzlephp.org/en/stable/overview.html#installation) добавим в файл **composer.json**
-который находится в корне проекта в секцию 
+Следуя инструкциям [по установке Guzzle](https://docs.guzzlephp.org/en/stable/overview.html#installation) добавим в файл **composer.json**
+который находится в корне проекта в секцию `require`
 
 ```json
 "guzzlehttp/guzzle": "^7.8"
@@ -57,7 +57,7 @@
 },
 ```
 
-Далее в коммандной строке выполнить:
+Далее в командной строке выполнить:
 ```shell
 > composer update
 ```
@@ -108,3 +108,69 @@ echo $body;
 ```
 
 Просто, не так ли?
+
+
+Теперь займемся загрузкой файлов на удаленный сервер:
+
+
+Как и указано в [документации](https://flysystem.thephpleague.com/docs/getting-started/)  добавим в файл **composer.json**
+в секцию `require`
+
+```json
+"league/flysystem": "^3.0",
+"league/flysystem-aws-s3-v3": "^3.0"
+```
+
+Снова:
+```shell
+> composer update
+```
+
+Все готово. Можем использовать библиотеку в своем расширении.
+
+```php
+<?php
+
+use Aws\S3\S3Client;
+use League\Flysystem\AwsS3V3\AwsS3V3Adapter;
+use League\Flysystem\Filesystem;
+
+// For some reason AWS adapter works this way only
+putenv('AWS_ACCESS_KEY_ID=my-access-key');
+putenv('AWS_SECRET_ACCESS_KEY=my-secret-key');
+
+/** @var S3ClientInterface $client */
+$client = new S3Client([
+    'version' => 'latest',
+    'endpoint' => 'https://storage.yandexcloud.net',
+    'region' => 'ru-central1',
+]);
+
+// The internal adapter
+$adapter = new AwsS3V3Adapter(
+    $client, // S3Client
+    'test-new-bucket', // Bucket name
+    'path/to/upload/dir' // path prefix
+);
+
+
+// The FilesystemOperator
+$fileSystem = new Filesystem($adapter);
+
+// Запись в файл
+$filesystem->write($path, $contents);
+```
+
+Вот и все. Не забудем добавить в инструкцию по установке нашего расширения необходимость добавить в **composer.json** 
+строки:
+
+```json
+"guzzlehttp/guzzle": "^7.8",
+"league/flysystem": "^3.0",
+"league/flysystem-aws-s3-v3": "^3.0"
+```
+И выполнить **composer update**, чтобы пользователи знали как правильно установить наше расширение.
+
+
+## Депрой проекта на продакшен сервер
+
