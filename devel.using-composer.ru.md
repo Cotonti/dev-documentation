@@ -65,8 +65,8 @@
 установит новые зависимсоти, которые появились в файле **composer.json** и удалит те, которых в этом файле больше нет.
 После этого Composer обновит файл **composer.lock**.
 
-**Внимание пользователи Windows**. Composer для Windows **имеет один баг** и может в файле **lib/composer/autoload_static.php** 
-сделать что то такое:
+**Внимание пользователи Windows**. Composer для Windows [**имеет один баг**](https://github.com/composer/composer/issues/6251)
+и может в файле **lib/composer/autoload_static.php** сделать что то такое:
 
 ```php
 public static $fallbackDirsPsr4 = array (
@@ -79,3 +79,32 @@ public static $fallbackDirsPsr4 = array (
   0 => DIR . '/../..' . '/lib',
 );
 ```
+
+Теперь наш HTTP клиент готов к использованию.
+
+В PHP-файл нашего расширения добавим
+
+```php
+<?php
+
+use GuzzleHttp\Client;
+
+// Создаем экземпляр клиента с базовым URI
+$client = new Client(['base_uri' => 'https://foo.com/api/']);
+
+// Отправим POST-запросов application/x-www-form-urlencoded
+$response = $client->request('POST', '/test', [
+  'form_params' => [
+      'field_name' => 'abc',
+      'other_field' => '123',
+      'nested_field' => [
+          'nested' => 'hello',
+      ],
+  ],
+]);
+
+$body = $response->getBody();
+echo $body;
+```
+
+Просто, не так ли?
