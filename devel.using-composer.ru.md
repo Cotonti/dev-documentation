@@ -62,7 +62,7 @@
 > composer update
 ```
 Эта команда обновит все зависимости установленные в проекте до последних версий (в соответствии с **composer.json**), 
-установит новые зависимсоти, которые появились в файле **composer.json** и удалит те, которых в этом файле больше нет.
+установит новые зависимости, которые появились в файле **composer.json** и удалит те, которых в этом файле больше нет.
 После этого Composer обновит файл **composer.lock**.
 
 **Внимание пользователи Windows**. Composer для Windows [**имеет один баг**](https://github.com/composer/composer/issues/6251)
@@ -92,7 +92,7 @@ use GuzzleHttp\Client;
 // Создаем экземпляр клиента с базовым URI
 $client = new Client(['base_uri' => 'https://foo.com/api/']);
 
-// Отправим POST-запросов application/x-www-form-urlencoded на адрес https://foo.com/api/test
+// Отправим POST-запрос application/x-www-form-urlencoded на адрес https://foo.com/api/test
 $response = $client->request('POST', '/test', [
   'form_params' => [
       'field_name' => 'abc',
@@ -154,7 +154,7 @@ $adapter = new AwsS3V3Adapter(
 );
 
 
-// The FilesystemOperator
+// FilesystemOperator готов и сконфигурирован. Можно использовать.
 $fileSystem = new Filesystem($adapter);
 
 // Запись в файл
