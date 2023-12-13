@@ -70,7 +70,7 @@
 
 ```php
 public static $fallbackDirsPsr4 = array (
-  0 => 'C:\\OpenServerData\\domains\\lily-software.loc\\public_html\\lib',
+  0 => 'C:\\OpenServerData\\domains\\my-pretty-project.loc\\public_html\\lib',
 );
 ```
 Надо вернуть как было:
