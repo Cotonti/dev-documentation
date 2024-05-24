@@ -3,7 +3,7 @@
 
 ![php-composer](https://github.com/Cotonti/dev-documentation/assets/1021886/d32e7170-0270-44ac-bf12-668a52222942)
 
-В версии Cotonti Siena 0.9.23 добавлена поддержка [Composer](https://getcomposer.org/) - менеджер пакетов для PHP.
+В версии Cotonti Siena 0.9.23 добавлена поддержка [Composer](https://getcomposer.org/) - менеджера пакетов для PHP.
 
 ## Что такое Composer
 
@@ -65,21 +65,6 @@
 установит новые зависимости, которые появились в файле **composer.json** и удалит те, которых в этом файле больше нет.
 После этого Composer обновит файл **composer.lock**.
 
-**Внимание пользователи Windows**. Composer для Windows [**имеет один баг**](https://github.com/composer/composer/issues/6251)
-и может в файле **lib/composer/autoload_static.php** сделать что то такое:
-
-```php
-public static $fallbackDirsPsr4 = array (
-  0 => 'C:\\OpenServerData\\domains\\my-pretty-project.loc\\public_html\\lib',
-);
-```
-Надо вернуть как было:
-```php
-public static $fallbackDirsPsr4 = array (
-  0 => DIR . '/../..' . '/lib',
-);
-```
-
 Теперь наш HTTP клиент готов к использованию.
 
 В PHP-файл нашего расширения добавим
@@ -111,7 +96,6 @@ echo $body;
 
 
 Теперь займемся загрузкой файлов на удаленный сервер:
-
 
 Как и указано в [документации](https://flysystem.thephpleague.com/docs/getting-started/)  добавим в файл **composer.json**
 в секцию `require`
@@ -176,7 +160,7 @@ $filesystem->write($path, $contents);
 
 Наш проект готов. Он находится под контролем версий Git. Пора перенести его на продакшен сервер.
 
-У нас в папке **lib** появились новые вложенные папки с зависимостями, которые добавил туда Composer.
+У нас в папке **lib/vendor** появились новые вложенные папки с зависимостями, которые добавил туда Composer.
 
 Добавим их в `.gitignore`. Нет необходимости добавлять их в репозиторий нашего проекта и увеличивать его
 размер.
